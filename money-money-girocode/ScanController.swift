@@ -137,7 +137,10 @@ extension GiroCode {
     static func parseAmount(s: String?) -> Double? {
         if let amountStr = s, amountStr.count > 4 {
             let index = amountStr.index(amountStr.startIndex, offsetBy: 3)
-            return Double(String(amountStr[index...]).trimmingCharacters(in: .whitespacesAndNewlines))
+            let numberString = String(amountStr[index...])
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+                .replacingOccurrences(of: ",", with: ".") //now also works with dot in amountString
+            return Double(numberString)
         } else {
             return nil
         }
